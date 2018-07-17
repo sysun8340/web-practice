@@ -29,7 +29,7 @@ class VisibleTodoList extends React.Component {
     if (isFetching && todos.length === 0) {
       return <p>loading...</p>
     }
-    if (errorMessage) {
+    if (errorMessage && todos.length === 0) {
       return <FetchError 
         message={errorMessage}
         onRetry={this.fetchData}
