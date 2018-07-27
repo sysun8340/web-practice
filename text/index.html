@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type='text/css'>
+    #div1 {
+      width: 198px;
+      height: 66px;
+      padding: 10px;
+      border: 1px solid black
+    }
+  </style>
+</head>
+<body>
+  
+  <article>文章</article>
+  <footer>脚部</footer>
+  <header>头部</header>
+  <nav>导航</nav>
+  <section>部分</section>
+  <div style='text-align: center'>
+    <button onclick='playPause()'>播放/暂停</button>
+    <button onclick='makeBig()'>大</button>
+    <button onclick="makeMiddle()">中</button>
+    <button onclick='makeSmall()'>小</button>
+    <br/>
+    <video id='video1' src="./movie.ogg" controls='controls'  style='margin-top: 15px'>
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div>
+    <audio src="./song.ogg" controls='controls'>不支持该音频</audio>
+  </div>
+
+
+
+  <p>请把 W3School 的图片拖放到矩形中：</p>
+  <div id='div1' ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+  <br/>
+  <img id='img1' src="./image/eg_dragdrop_w3school.gif" alt="W3School" draggable='true'
+    ondragstart="drag(event)"
+  >
+  <br/>
+  <hr/>
+
+  <!--canvas-->
+  <canvas id='mycanvas' width="200" height="100"></canvas>
+  <br/>
+  <canvas id='canvas2' width=400, height="200" style="border:5px solid #c3c3c3;"></canvas>
+  <br/>
+  <canvas id='canvasCircle' width=200, height="100" style="border:1px solid #c3c3c3;">
+    Your browser does not support the canvas element.
+  </canvas>
+  <br/>
+  <canvas id='canvasGradualChange' width=200, height="100" style="border:1px solid #c3c3c3">
+    Your browser does not support the canvas element.
+  </canvas>
+  <br/>
+  <canvas id='canvasImg' width=300, height="150" style="border:1px solid #c3c3c3">
+    Your browser does not support the canvas element.
+  </canvas>
+  <!--canvas-->
+
+
+
+  <script type='text/javascript'>
+    function playPause () {
+      var video1 = document.getElementById('video1')
+      if (video1.paused) {
+        video1.play()
+      }else{
+        video1.pause()
+      }
+    } 
+    function makeBig () {
+      video1.width = '560'
+    }
+    function makeMiddle () {
+      video1.width = '420'
+    }
+    function makeSmall () {
+      video1.width = '320'
+    }
+    //////////
+    function drag (e) {
+      e.dataTransfer.setData('text', 'img1')
+    }
+    function allowDrop (e) {
+      e.preventDefault()
+    }
+    function drop (e) {
+      e.preventDefault()
+      var data = e.dataTransfer.getData('text')
+      e.target.appendChild(document.getElementById(data))
+    }
+    
+    // canvas
+    var c = document.getElementById('mycanvas')
+    var cxt = c.getContext('2d')
+    cxt.fillStyle = 'purple'
+    cxt.fillRect(0, 0, 200, 100)
+    
+    // canvas2
+    var c2 = document.getElementById('canvas2')
+    var cxt2 = c2.getContext('2d')
+    cxt2.fillStyle = '#99FFCC'
+    cxt2.fillRect(0, 0, 400, 200)
+    cxt2.moveTo(0, 0)
+    cxt2.lineTo(200, 100)
+    cxt2.lineTo(400, 0)
+    cxt2.stroke()
+
+    // canvas-circle
+    var cCircle = document.getElementById('canvasCircle')
+    var cxtCircle = cCircle.getContext('2d')
+    cxtCircle.fillStyle = 'blue'
+    cxtCircle.beginPath()
+    cxtCircle.arc(100, 50, 50, 0, 2*Math.PI)
+    cxtCircle.closePath()
+    cxtCircle.fill()
+
+    // canvas-gradualChange
+    var canvasGradualChange = document.getElementById('canvasGradualChange')
+    var cxtGradualChange = canvasGradualChange.getContext('2d')
+    var grd = cxtGradualChange.createLinearGradient(0, 0, 200, 0)
+    grd.addColorStop(0, 'red')
+    grd.addColorStop(1, 'blue')
+    cxtGradualChange.fillStyle = grd
+    cxtGradualChange.fillRect(0, 0, 200, 100)
+
+    // canvasImg
+    var canvasImg = document.getElementById('canvasImg')
+    var cxtImg = canvasImg.getContext('2d')
+    var img = new Image()
+    img.src = './image/ct_html5_canvas_image.gif'
+    img.onload = function () {
+      cxtImg.drawImage(img, 0, 0)
+    }
+    
+
+
+
+  </script>
+</body>
+</html>
+

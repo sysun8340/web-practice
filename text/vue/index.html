@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app">
+      {{ message }}
+    </div>
+    <div id="app-2">
+      <span v-bind:title="message">
+        鼠标悬停几秒钟查看此处动态绑定的提示信息！{{message}}
+      </span>
+    </div>
+    <div id='app-3'>
+      <p v-if='seen'>
+        现在你看到我了
+      </p>
+    </div>
+    <div id='app-4'>
+      <ol>
+        <li v-for='todo in todos' >
+          {{todo.text}}
+        </li>
+      </ol>
+    </div>
+    <div id='app-5' >
+      <p>{{message}}</p>
+      <button v-on:click='reverseMessage' >逆转消息</button>
+    </div>
+    <div id='app-6' >
+      <p>{{message}}</p>
+      <input type="text" v-model='message'>
+    </div>
+    <div id='app-7'>
+      <ol>
+        <todo-item 
+          v-for='todo in todos' 
+          v-bind:todo='todo'
+          v-bind:key='todo.id'
+        >
+        </todo-item>
+      </ol>
+    </div>
+
+    
+
+  <script src='./javascript.js' ></script>
+</body>
+</html>
