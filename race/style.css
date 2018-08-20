@@ -1,0 +1,54 @@
+.container {
+  position: relative;
+  background-color: antiquewhite;
+  left: 20px;
+  top: 20px;
+  width: 500px;
+  height: 200px;
+}
+
+#finishLine {
+  position: relative;
+  float: right;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 200px;
+  border-left: 1px solid black;
+
+}
+.cars {
+  display: inline-block;
+}
+.car {
+  line-height: 40px;
+  width: 100px;
+  height: 40px;
+  color:white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#car1 {
+  background-color: rgb(84, 112, 172)
+}
+
+#car2 {
+  background-color: rgb(83, 30, 114)
+}
+
+#car3 {
+  background-color: rgb(144, 153, 59)
+}
+
+#car4 {
+  background-color: rgb(21, 37, 88)
+}
+
+#car5 {
+  background-color: rgb(211, 31, 181)
+}
+
+.panel {
+  margin-top: 20px;
+}
