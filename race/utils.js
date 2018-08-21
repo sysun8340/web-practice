@@ -1,30 +1,37 @@
-const cars = ['car1', 'car2', 'car3', 'car4', 'car5']
-let timer = null
+const carsData = [
+  {id: 0, name: 'car1', time: 0, distance: 0},
+  {id: 1, name: 'car2', time: 0, distance: 0},
+  {id: 2, name: 'car3', time: 0, distance: 0},
+  {id: 3, name: 'car4', time: 0, distance: 0},
+  {id: 4, name: 'car5', time: 0, distance: 0},
+]
+const distance = 400
 
-const finishLine = document.getElementById('finishLine')
-const getFinishLinePosition = finishLine.getBoundingClientRect().left
-
-const getCarPosition = car => car.getBoundingClientRect().left
+const getCarPosition = car => car.getBoundingClientRect().left - 28
 
 const move = car => {
-  console.log(car.style.left)
-  const distance = Math.random()*5 + parseFloat(car.style.left)
+  const distance = Math.random() + parseFloat(car.style.left)
   car.style.left = distance + 'px'
 }
 
 const isFinished = car => {
-  if(getCarPosition(car) >= getFinishLinePosition) {
-    clearInterval(timer)
-    return
+  if(getCarPosition(car) > distance) {
+    return true
   }
 }
 
 const race = car => {
-  isFinished(car)
+  if(isFinished(car)) return
   move(car)
+  setTimeout(() => {race(car)}, 10)
 }
 
 const start = () => {
-  const car1 = document.getElementById('car1')
-  timer = setInterval(() => {race(car1)}, 100)
+  carsData.forEach(carData => {
+    const car = document.getElementById(carData.name)
+    race(car)
+  })
 }
+
+const button = document.getElementById('button')
+button.addEventListener('click', start)
