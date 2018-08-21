@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  background-color: antiquewhite;
+  background: url('./images/timg.jpg');
   left: 20px;
   top: 20px;
   width: 500px;
@@ -14,8 +14,7 @@
   right: 0;
   width: 100px;
   height: 200px;
-  border-left: 1px solid black;
-
+  border-left: 4px solid rgb(247, 8, 8);
 }
 .cars {
   display: inline-block;
