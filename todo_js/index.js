@@ -1,9 +1,11 @@
 const todoInput = document.getElementById('todoInput')
 const todoList = document.getElementById('todoList')
+const allFilters = ['all', 'uncompleted', 'completed']
 let todos = []
 let index = 0
+let currentFilter = 'all'
 
-const addTodo = (e) => {
+const addTodo = e => {
   e.preventDefault()
   const todo = {
     id: index++,
@@ -16,31 +18,33 @@ const addTodo = (e) => {
   else {
     retrun
   }
-  showTodoList()
+  renderTodoList(getFilteredTodos(currentFilter))
   todoInput.value = ''
   todoInput.focus()
 }
 
-const onTodoClick = (id) => {
+const onTodoClick = id => {
   todos = todos.map(todo => id === todo.id ? 
     {...todo, isCompleted: !todo.isCompleted} : {...todo}
   )
-  showTodoList()
+  renderTodoList(getFilteredTodos(currentFilter))
 }
 
-const showTodoList = (filter) => {
-  let newTodos = null
+const getFilteredTodos = filter => {
   switch (filter) {
     case 'all': 
-      newTodos = todos
+      return todos
     case 'uncompleted': 
-      newTodos = todos.filter(todo => !todo.isCompleted)
+      return todos.filter(todo => !todo.isCompleted)
     case 'completed': 
-      newTodos = todos.filter(todo => todo.isCompleted)
+      return todos.filter(todo => todo.isCompleted)
     default: 
-      newTodos = todos
+      return todos
   }
-  todoList.innerHTML = newTodos.map(todo => 
+}
+
+const renderTodoList = filteredTodos => {
+  todoList.innerHTML = filteredTodos.map(todo => 
     `<li onclick='onTodoClick(${todo.id})'  
       style='text-decoration: ${todo.isCompleted ? 'line-through' : 'none'}'
     >
@@ -49,10 +53,26 @@ const showTodoList = (filter) => {
   ).join('')
 }
 
-['all', 'uncompleted', 'completed'].forEach(filter => {
+const setFilter = (filter) => {
+  currentFilter = filter
+}
+
+const renderFilter = () => {
+  allFilters.forEach(filter => 
+    document.getElementById(filter).style.textDecoration = 
+      filter === currentFilter ? 'none' : 'underline'
+  )
+}
+
+// 为所有filter绑定监听事件
+allFilters.forEach(filter => {
   document.getElementById(filter).addEventListener('click', (e) => {
     e.preventDefault()
-    showTodoList(filter)
+    setFilter(filter)
+    renderFilter()
+    renderTodoList(getFilteredTodos(filter))
   })
 })
+
+// 为“添加”按钮绑定监听事件
 document.getElementById('addTodo').addEventListener('click', addTodo)
