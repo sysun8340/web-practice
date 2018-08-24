@@ -1,19 +1,19 @@
 const todoInput = document.getElementById('todoInput')
 const todoList = document.getElementById('todoList')
 const allFilters = ['all', 'uncompleted', 'completed']
-let todos = []
-let index = 0
+let todos = JSON.parse(localStorage.getItem('todos')) || []
 let currentFilter = 'all'
 
 const addTodo = e => {
   e.preventDefault()
   const todo = {
-    id: index++,
+    id: Math.random().toString(36).substr(2),
     text: todoInput.value.trim(),
     isCompleted: false
   }
   if(todo.text.length > 0) {
     todos.push(todo)
+    localStorage.setItem('todos', JSON.stringify(todos))
   }
   else {
     retrun
@@ -27,6 +27,7 @@ const onTodoClick = id => {
   todos = todos.map(todo => id === todo.id ? 
     {...todo, isCompleted: !todo.isCompleted} : {...todo}
   )
+  localStorage.setItem('todos', JSON.stringify(todos))
   renderTodoList(getFilteredTodos(currentFilter))
 }
 
@@ -44,13 +45,15 @@ const getFilteredTodos = filter => {
 }
 
 const renderTodoList = filteredTodos => {
-  todoList.innerHTML = filteredTodos.map(todo => 
-    `<li onclick='onTodoClick(${todo.id})'  
+  todoList.innerHTML = filteredTodos.map(todo => {
+    return (
+      `<li onclick='onTodoClick("${todo.id}")'  
       style='text-decoration: ${todo.isCompleted ? 'line-through' : 'none'}'
     >
       ${todo.text}
     </li>`
-  ).join('')
+    )
+  }).join('')
 }
 
 const setFilter = (filter) => {
@@ -63,6 +66,13 @@ const renderFilter = () => {
       filter === currentFilter ? 'none' : 'underline'
   )
 }
+
+// 初始化
+const initApp = () => {
+  renderTodoList(getFilteredTodos(currentFilter))
+  renderFilter()
+}
+initApp()
 
 // 为所有filter绑定监听事件
 allFilters.forEach(filter => {
