@@ -12,7 +12,17 @@
 <body>
 
   <script>
-    
+    function fn (n) {
+      if(n > 30) throw Error('n 的范围必须是1-30')
+      const arr = []
+      while (arr.length < n) {
+        let randomNum = Math.ceil(Math.random() * 30 + 2)
+        if(arr.indexOf(randomNum) === -1) {
+          arr.push(randomNum)
+        }
+      }
+      return arr
+    }
   </script>
 </body>
 </html>
